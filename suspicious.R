@@ -26,8 +26,6 @@ check_frame_dimensions<-function(df){
   }
 } 
 
-check_frame_dimensions(dat)
-nrow(dat)
 check_numeric<-function(x){
   numlist<-c(65535, 255, 2147483647, 4294967295, 99999, 00000, 9999, 0000, 999, 000)
   # common error values and placeholder values
@@ -37,6 +35,7 @@ check_numeric<-function(x){
     return("No suspicious numbers detected")
   }
 }
+
 
 check_telephone<-function(x){
   # 555- area code is used for fictitious numbers
@@ -84,8 +83,6 @@ check_zips<-function(x){
     }
   }
       
-
-
 check_benford<-function(x){
   require(ggplot2)
   # Benford's Law fails
@@ -94,11 +91,10 @@ check_benford<-function(x){
   # practices or election results, though in practice it can easily be misapplied. If you suspect a dataset has 
   # been created or modified to deceive, Benford's Law is an excellent first test, but you should always verify 
   # your results with an expert before concluding your data have been manipulated.
-  bens<-c(30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6)
+  bens<-c(.301, .176, .125, .097, .079, .067, .058, .051, .046) * length(x/9)
   benfords<-as.data.frame(cbind(n = 1:9, bens))
   txt <-substr(as.character(x), 1,1)
-  tab <-sort(table(txt))
-  dat <-as.data.frame(tab)
+  dat <-as.data.frame(table(txt))
   ggplot(dat, aes(txt, Freq)) + geom_col() + 
     geom_line(data=benfords, aes(x = n, y = bens))+
     geom_point(data=benfords, aes(x = n, y = bens)) + labs(
