@@ -3,8 +3,6 @@
 # https://github.com/Quartz/bad-data-guide
 # Contains functions to check for common dataset problems 
 
-
-
 check_frame_dimensions<-function(df){
   # Spreadsheet has 65536 rows
   # The maximum number of rows an old-fashioned Excel spreadsheet was allowed to have was 65,536. 
@@ -35,7 +33,6 @@ check_numeric<-function(x){
     return("No suspicious numbers detected")
   }
 }
-
 
 check_telephone<-function(x){
   # 555- area code is used for fictitious numbers
@@ -68,11 +65,14 @@ check_dates<-function(x, type = isdate){
   }
 }
 
-# check_locations<-function(x){
-# TODO: determine how to check longitudes and latitudes
-# e.g. force user to input two arguments for long and lat
-#   # loclist<-c(0°00'00.0"N+0°00'00.0"E, 0°N 0°E)
-# }
+check_locations<-function(long, lat){
+ if (any(long ==0 & lat == 0)) {
+   print("Are you at the poles?")
+ }
+  else {
+    print("No suspicious locations detected")
+  }
+}
 
 check_zips<-function(x){
   ziplist<-c(12345, 90210, 00000, 99999) #Schenectady, NY and Beverly Hills, CA, plus two placeholders
@@ -103,7 +103,6 @@ check_benford<-function(x){
       y = "frequency"
     )
 }
-
 
 # graph_benford<-function(df){
 #   require(ggplot2)
