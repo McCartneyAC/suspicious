@@ -37,7 +37,14 @@ check_numeric<-function(x){
 check_telephone<-function(x){
   # 555- area code is used for fictitious numbers
   # you should also see if Jenny is in your dataset: 867-5309
-  
+  nums<-gsub("\\D", "", x)
+  if (sum(grepl('555', nums, fixed = TRUE)) != 0) {
+    print("Check your numbers--some of them may be fictitious")
+  } else if (sum(grepl('8675309', nums, fixed = TRUE)) != 0) {
+    print("Check your numbers--Jenny is in your dataset")
+  } else {
+    ("No suspicious phone numbers detected")
+  }
 }
 
 check_dates<-function(x, type = isdate){
