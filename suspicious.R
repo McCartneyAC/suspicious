@@ -3,7 +3,7 @@
 # https://github.com/Quartz/bad-data-guide
 # Contains functions to check for common dataset problems 
 
-check_frame_dimensions<-function(df){
+suspect_frame_dimensions<-function(df){
   # Spreadsheet has 65536 rows
   # The maximum number of rows an old-fashioned Excel spreadsheet was allowed to have was 65,536. 
   # If you receive a dataset with that number of rows you have almost certainly been given 
@@ -24,7 +24,7 @@ check_frame_dimensions<-function(df){
   }
 } 
 
-check_numeric<-function(x){
+suspect_numeric<-function(x){
   numlist<-c(65535, 255, 2147483647, 4294967295, 99999, 00000, 9999, 0000, 999, 000)
   # common error values and placeholder values
   if (any(x %in% numlist)){
@@ -34,7 +34,7 @@ check_numeric<-function(x){
   }
 }
 
-check_telephone<-function(x){
+suspect_telephone<-function(x){
   # 555- area code is used for fictitious numbers
   # you should also see if Jenny is in your dataset: 867-5309
   nums<-gsub("\\D", "", x)
@@ -47,7 +47,7 @@ check_telephone<-function(x){
   }
 }
 
-check_dates<-function(x, type = isdate){
+suspect_dates<-function(x, type = isdate){
   require(lubridate) 
   # TODO: use with POSIXct instead of lubridate
   # TODO: check automatically for type = datetime / posixct
@@ -72,7 +72,7 @@ check_dates<-function(x, type = isdate){
   }
 }
 
-check_locations<-function(long, lat){
+suspect_locations<-function(long, lat){
  if (any(long ==0 & lat == 0)) {
    print("Are you at the poles?")
  }
@@ -81,7 +81,7 @@ check_locations<-function(long, lat){
   }
 }
 
-check_zips<-function(x){
+suspect_zips<-function(x){
   ziplist<-c(12345, 90210, 00000, 99999) #Schenectady, NY and Beverly Hills, CA, plus two placeholders
   if(any(x %in% ziplist)) {
     print("Check your zip codes--are you in Schenectady or Beverly Hills?")
@@ -90,7 +90,7 @@ check_zips<-function(x){
     }
   }
       
-check_benford<-function(x){
+suspect_benford<-function(x){
   require(ggplot2)
   # Benford's Law fails
   # Benford's Law is a theory which states that small digits (1, 2, 3) appear at the beginning of numbers much more 
@@ -110,7 +110,3 @@ check_benford<-function(x){
       y = "frequency"
     )
 }
-
-# graph_benford<-function(df){
-#   require(ggplot2)
-# }
