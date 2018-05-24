@@ -5,6 +5,8 @@ Based on [Quartz's](https://github.com/Quartz/bad-data-guide) guide to bad data,
 
 ## installation
 
+````r
 install.packages("devtools")
-devtools::install_github("McCartneyAC/suspicious")
 
+devtools::install_github("McCartneyAC/suspicious")
+````
