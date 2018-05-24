@@ -166,14 +166,10 @@ suspect_zips<-function(x){
 #'@example suspect_benford(iris$Sepal.Length)
 suspect_benford <- function(x){
 
-  # define the proportions based on Benford's
-  bens<-(c(.301, .176, .125, .097, .079, .067, .058, .051, .046) * (length(x)/9))
-  benfords<-as.data.frame(cbind(n = 1:9, bens))
-
   # convert to strings, eliminate all but first digit, put into a dataframe
   txt <-substr(as.character(x), 1,1)
   dat <-as.data.frame(table(txt), stringsAsFactors = FALSE)
-
+  
   # add any missing values as Freq = 0 and then reorder
   for (i in 1:9){
     if (!(i %in% dat$txt)) {
@@ -182,7 +178,11 @@ suspect_benford <- function(x){
   }
   dat<-dat[order(dat$txt),]
   dat<-dat[dat$txt != 0, ]
-
+  
+  # define the proportions based on Benford's
+  bens<-(c(.301, .176, .125, .097, .079, .067, .058, .051, .046) * (sum(dat$Freq)))
+  benfords<-as.data.frame(cbind(n = 1:9, bens))
+  
   # plot
   ggplot2::ggplot(data=dat, ggplot2::aes(txt, Freq)) +
     ggplot2::geom_col() +
