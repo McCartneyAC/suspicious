@@ -10,3 +10,16 @@ install.packages("devtools")
 
 devtools::install_github("McCartneyAC/suspicious")
 ````
+
+
+## An Example
+
+One of the checks available is a visual check, using `ggplot2`, of the adherence of a vector of numbers to Benford's Law. Inputting a vector plots the frequency of each initial digit against the frequencies theorized by Benford's Law. This is sometimes used forensically to uncover forged financial documents, but proceed with caution; it's not a foolproof test of tampered data. 
+
+````r
+dat<-runif(1000, min = 1000, max = 9999)
+
+suspicious::suspect_benford(dat)
+````
+Should result in: 
+![Benford's Law Visual Check Example](http://people.virginia.edu/~acm9q/img/benford_runif.png) 
