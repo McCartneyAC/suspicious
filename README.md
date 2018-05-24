@@ -22,4 +22,6 @@ dat<-runif(1000, min = 1000, max = 9999)
 suspicious::suspect_benford(dat)
 ````
 Should result in: 
+
+
 ![Benford's Law Visual Check Example](http://people.virginia.edu/~acm9q/img/benford_runif.png) 
