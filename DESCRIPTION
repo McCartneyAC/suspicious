@@ -1,0 +1,13 @@
+Package: suspicious
+Type: Package
+Title: Functions for Finding Common Dataset Problems
+Version: 0.1.0
+Author: Andrew McCartney
+Maintainer: Andrew McCartney <acm9q@virginia.edu>
+Description: 
+    Based on the Quartz guide to Bad Data: (https://github.com/Quartz/bad-data-guide) This package contains functions that can be used to check your data for common missing value placeholders, fictitious values, and other properties that can result from bad data. 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: ggplot2
+RoxygenNote: 6.0.1
