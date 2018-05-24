@@ -169,9 +169,9 @@ suspect_benford<-function(x){
   benfords<-as.data.frame(cbind(n = 1:9, bens))
   txt <-substr(as.character(x), 1,1)
   dat <-as.data.frame(table(txt))
-  ggplot2::ggplot(dat, aes(txt, Freq)) + ggplot2::geom_col() +
-    ggplot2::geom_line(data=benfords, aes(x = n, y = bens))+
-    ggplot2::geom_point(data=benfords, aes(x = n, y = bens)) + ggplot2::labs(
+  ggplot2::ggplot(dat, ggplot2::aes(txt, Freq)) + ggplot2::geom_col() +
+    ggplot2::geom_line(data=benfords, ggplot2::aes(x = n, y = bens))+
+    ggplot2::geom_point(data=benfords, ggplot2::aes(x = n, y = bens)) + ggplot2::labs(
       title = "Benford's Law Visual Check",
       x = "digit",
       y = "frequency"
