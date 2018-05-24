@@ -47,24 +47,19 @@ suspect_telephone<-function(x){
   }
 }
 
-suspect_dates<-function(x, type = isdate){
-  require(lubridate) 
-  # TODO: use with POSIXct instead of lubridate
-  # TODO: check automatically for type = datetime / posixct
-  datelist<-as_date(c("1900-01-01", "1904-01-01")) #Common start dates
-  datetimelist<-as_datetime(c(ymd_hms("1970-01-01 00:00:00"), ymd_hms("1969-12-31 23:59:59"))) # an epoch change
-  if (type == isdate) {
+suspect_dates<-function(x){
+  datelist<-as.Date(c("1900-01-01", "1904-01-01")) # Common start dates for excel
+  datetimelist<-as.POSIXct(c("1970-01-01 00:00:00", "1969-12-31 23:59:59")) # an epoch change
+  if (class(x)=="Date") {
     if (any(x %in% datelist)){
       print("Check your dates--are your data around the turn of the century?")
     } else {
       print("No suspicious dates detected")
     }
-  }
-  else if (type == isdatetime) {
+  } else if (sum(class(datetimelist)=="POSIXct") != 0) {
     if (any(x %in% datetimelist)) {
       print("Check your dates--are your data around 1970?")
-    }
-    else {
+    } else {
       print("No suspicious dates detected")
     }
   } else {
